@@ -1,7 +1,6 @@
 package com.vanniktech.rxriddles
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
 
 object Riddle3 {
     /**
@@ -9,7 +8,6 @@ object Riddle3 {
      *
      * Use case: You want to filter certain items out.
      */
-    fun solve(source: Flow<Int>): Flow<Int> {
-        return source.filter { it % 2 == 0 }
-    }
+    fun solve(source: Flow<Int>): Flow<Int> =TODO()
+
 }

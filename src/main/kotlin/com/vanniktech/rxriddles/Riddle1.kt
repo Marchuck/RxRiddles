@@ -1,7 +1,6 @@
 package com.vanniktech.rxriddles
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 object Riddle1 {
     /**
@@ -9,6 +8,8 @@ object Riddle1 {
      *
      * Use case: You want to transform some value to the reactive world.
      */
-    fun solve(value: Int): Flow<Int> = flow { emit(value) }
+    fun solve(value: Int): Flow<Int> {
+        TODO()
+    }
 
 }

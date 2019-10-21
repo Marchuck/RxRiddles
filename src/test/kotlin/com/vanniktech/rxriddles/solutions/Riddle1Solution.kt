@@ -1,8 +1,8 @@
 package com.vanniktech.rxriddles.solutions
 
-import io.reactivex.Observable
+import kotlinx.coroutines.flow.flow
 
 object Riddle1Solution {
   fun solve(value: Int)
-      = Observable.just(value)
+      = flow { emit(value) }
 }

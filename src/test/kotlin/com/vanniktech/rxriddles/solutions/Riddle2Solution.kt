@@ -1,8 +1,9 @@
 package com.vanniktech.rxriddles.solutions
 
-import io.reactivex.Observable
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 object Riddle2Solution {
-  fun solve(source: Observable<Int>)
-      = source.map { it + 1 }
+  fun solve(source: Flow<Int>)
+      = source.map { value -> value + 1 }
 }

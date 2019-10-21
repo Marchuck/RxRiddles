@@ -11,5 +11,5 @@ object Riddle2 {
      * Use case: You want to transform the data.
      */
     @ExperimentalCoroutinesApi
-    fun solve(source: Flow<Int>): Flow<Int> = source.map { value -> value + 1 }
+    fun solve(source: Flow<Int>): Flow<Int> = TODO()
 }

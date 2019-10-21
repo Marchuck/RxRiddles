@@ -1,9 +1,15 @@
 package com.vanniktech.rxriddles.solutions
 
-import io.reactivex.Observable
-import io.reactivex.functions.BiFunction
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 
 object Riddle5Solution {
-  fun solve(first: Observable<Int>, second: Observable<Int>)
-      = Observable.combineLatest(first, second, BiFunction<Int, Int, Int> { t1, t2 -> t1 + t2 })
+
+  fun solve(first: Flow<Int>, second: Flow<Int>): Flow<Int> {
+    return first.combine( second, transform())
+  }
+
+  private fun transform(): suspend (a: Int, b: Int) -> Int {
+    return { first, second -> first + second }
+  }
 }
