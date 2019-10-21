@@ -1,26 +1,44 @@
 package com.vanniktech.rxriddles
 
 import com.vanniktech.rxriddles.solutions.Riddle5Solution
-import io.reactivex.subjects.BehaviorSubject
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 
 /** Solution [Riddle5Solution] */
 class Riddle5Test {
-  @Test fun solve() {
-    val first = BehaviorSubject.createDefault(0)
-    val second = BehaviorSubject.createDefault(0)
 
-    val o = Riddle5.solve(first, second)
-        .test()
-        .assertValuesOnly(0)
+    @InternalCoroutinesApi
+    @Test
+    fun solve() = runBlockingTest {
 
-    first.onNext(5)
-    o.assertValuesOnly(0, 5)
+        val actual = arrayListOf<Int>()
+        val collector = flowCollector<Int> {
+            actual.add(it)
+        }
 
-    second.onNext(6)
-    o.assertValuesOnly(0, 5, 11)
+        Riddle5.solve(flow {
+            emit(0)
+            delay(100)
+            emit(5)
+            delay(100)
+            assertListEquals(arrayListOf(0, 5, 11), actual, "third check")
+            emit(-6)
+            delay(100)
+        }, flow {
+            delay(50)
+            emit(0)
+            assertListEquals(arrayListOf(0), actual, "first check")
+            delay(100)
+            assertListEquals(arrayListOf(0, 5), actual, "second check")
+            emit(6)
+            delay(100)
+        }
 
-    first.onNext(-6)
-    o.assertValuesOnly(0, 5, 11, 0)
-  }
+        ).collect(collector)
+
+        assertListEquals(arrayListOf(0, 5, 11, 0), actual,"last check")
+    }
 }
